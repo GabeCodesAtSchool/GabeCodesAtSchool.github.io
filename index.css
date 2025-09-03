@@ -6,7 +6,7 @@ body {
   text-align: center;
 } .nameText {
   color: red;
-  font-family: Arial;
+  font-family: 'Courier New', Courier, monospace;
 } .aboutMe {
   background-color: green;
   text-align: center;
@@ -16,4 +16,12 @@ body {
 } .goals {
   text-align: center;
   color: green;
+  font-family: 'Courier New', Courier, monospace;
+} .myPic {
+  border-radius: 1500px;
+} .sheet {
+  text-align: center;
+  color: yellow;
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 4px 2px 2px red;
 }
