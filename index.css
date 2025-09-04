@@ -1,0 +1,27 @@
+body {
+  margin: 0px;
+  background-color: black;
+} .myName {
+  background-color: blue;
+  text-align: center;
+} .nameText {
+  color: red;
+  font-family: 'Courier New', Courier, monospace;
+} .aboutMe {
+  background-color: green;
+  text-align: center;
+} .aboutMeText {
+  color: green;
+  text-align: left;
+} .goals {
+  text-align: center;
+  color: green;
+  font-family: 'Courier New', Courier, monospace;
+} .myPic {
+  border-radius: 1500px;
+} .sheet {
+  text-align: center;
+  color: yellow;
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 4px 2px 2px red;
+}
