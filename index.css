@@ -51,4 +51,8 @@ body {
   text-align: center;
   color: lightblue;
   font-family: Arial, Helvetica, sans-serif;
-}
+} .asked {
+  color: white;
+  font-family: arial;
+  font-size: 15px;
+} 
