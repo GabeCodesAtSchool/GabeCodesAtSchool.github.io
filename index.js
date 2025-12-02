@@ -1,3 +1,4 @@
+
 let x = 0;
 function furstSupply() {
     x = Math.floor(Math.random() * 5);
@@ -128,4 +129,3 @@ it_go = 0;
     it_go = 0;
  }
  // Coder Candy 2 done
-
