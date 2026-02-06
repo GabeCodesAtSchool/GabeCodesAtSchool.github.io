@@ -21,6 +21,7 @@ const pos = {
     left: 0,
     top: 0,
 }
+const berries = [];
 var leftPos = 0;
 function css(id, property, amount) { 
   document.getElementById(id).style[property] = `${amount}px`; 
@@ -42,6 +43,9 @@ function animate() {
     }
   css("char", "left", pos.left);
   css("char", "top", pos.top);
+}
+function createBerry() {
+    var myBerry = {}
 }
 function move(con) {
 for (let key in moving) {
