@@ -4,124 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Historia de Beth y el Hada</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #1a1a1a;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-        }
-
-        #game-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            aspect-ratio: 16/9;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            background: #000;
-        }
-
-        canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Darker Back Button Styling */
-        #back-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.7); /* Darker background */
-            color: #eeeeee;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(4px);
-        }
-
-        #back-btn:hover {
-            background: rgba(0, 0, 0, 0.9);
-            border-color: rgba(255, 255, 255, 0.4);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        #ui-layer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: rgba(0, 0, 0, 0.85);
-            border-top: 4px solid #333333;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: opacity 0.3s;
-        }
-
-        #speaker-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ff8c00; 
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        #dialogue-text {
-            font-size: 1.1rem;
-            line-height: 1.4;
-            color: #f0f0f0;
-            white-space: pre-wrap;
-        }
-
-        #next-btn {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 10px 22px;
-            font-size: 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            animation: pulse 1.5s infinite;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
-        }
-
-        #next-btn:hover {
-            background: #ff6b81;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-    </style>
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="skit.css">
 </head>
 <body>
 
 <div id="game-container">
+    <!-- Back Navigation -->
     <a href="index.html" id="back-btn">&larr;Back</a>
     
+    <!-- Animation Stage -->
     <canvas id="canvas"></canvas>
     
+    <!-- User Interface Layer -->
     <div id="ui-layer">
         <div id="speaker-name">...</div>
         <div id="dialogue-text">Click THE BIG RED to begin...</div>
@@ -131,7 +27,7 @@
 
 <script>
 /**
- * SCRIPT DATA
+ * STORY DATA & GAME LOGIC
  */
 const script = [
     { type: "scene", bg: "bedroom" },
@@ -251,13 +147,13 @@ function advanceStory() {
     uiText.innerText = step.text;
 
     if (step.style === "anime") {
-        shakeAmount = 12;
-        uiText.style.fontSize = "1.5rem";
-        uiText.style.color = "#ff4757";
+        shakeAmount = 15;
+        uiText.style.fontSize = "1.6rem";
+        uiText.style.color = "#ff4d4d";
     } else {
         shakeAmount = 0;
-        uiText.style.fontSize = "1.1rem";
-        uiText.style.color = "#f0f0f0";
+        uiText.style.fontSize = "1.15rem";
+        uiText.style.color = "#dfe6e9";
     }
 }
 
@@ -309,11 +205,11 @@ function drawBackground() {
 function drawSpeedLines() {
     ctx.save();
     ctx.translate(canvas.width/2, canvas.height/2);
-    ctx.strokeStyle = "rgba(0,0,0,0.4)";
-    ctx.lineWidth = 1;
-    for(let i=0; i<60; i++) {
+    ctx.strokeStyle = "rgba(0,0,0,0.5)";
+    ctx.lineWidth = 1.5;
+    for(let i=0; i<70; i++) {
         ctx.rotate(Math.random() * Math.PI * 2);
-        ctx.beginPath(); ctx.moveTo(80, 0); ctx.lineTo(600, 0); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(90, 0); ctx.lineTo(650, 0); ctx.stroke();
     }
     ctx.restore();
 }
@@ -331,7 +227,7 @@ function drawCharacter(charKey, charData, time) {
 
     if (currentScene === "anime" && charKey === "beth") {
         x = canvas.width/2; y = canvas.height/2 + 60;
-        ctx.save(); ctx.translate(x, y); ctx.scale(3.5, 3.5);
+        ctx.save(); ctx.translate(x, y); ctx.scale(3.8, 3.8);
         drawPersonBody(0, 0, charData.color, charKey); ctx.restore();
         return;
     }
