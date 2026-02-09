@@ -270,7 +270,7 @@ function clock() {
   if (outerTime >= 60) {
     outerTime = 0;
     hours++;
-    createEnemies(getRndInteger(150, 500), getRndInteger(500, 1000), 10, getRndInteger(5, 50));
+    createEnemies(getRndInteger(150, 500), getRndInteger(500, 1000), 10, getRndInteger(5, 30));
   }
   if (hours > 12) {
     hours = 1;
@@ -510,6 +510,7 @@ save.buttonLet = buttonLet;
 save.idstring = idstring;
 save.kidstring = kidstring;
 save.foestring = foestring;
+save.foeval = 0;
 save.kidval = kidval;
 save.car = car;
 save.forsaleVal = forsaleVal;
@@ -544,7 +545,7 @@ function loadSave() {
     window[x] = load[x];
   }
   for (let i = 0; i < baddies.length; i++) {
-    baddies[i].form.remove();
+    baddies.pop();
   }
 }
 function stopMovement() {
@@ -676,7 +677,7 @@ function openInv() {
 }
 function shopMenu() {
   if (isDay) {
-    whattobuy = prompt(`Type returnHome to return to main page <br> Stuff Available: Health Potion and These Items: ${forsale}`);
+    whattobuy = prompt(`Stuff Available: Health Potion and These Items: ${forsale}`);
     for (let i = 0; i < forsale.length; i++) {
       if (whattobuy === forsale[i]) {
         if (money >= (weaponData[weaponData.indexOf(whattobuy) + 2])) {
@@ -705,9 +706,6 @@ function shopMenu() {
       } else {
         alert("Not Enough Money");
       }
-    }
-    if (whattobuy === "returnHome") {
-        window.location.href = "index.html"
     }
   } else {
     alert("We're Closed!");
@@ -741,3 +739,171 @@ function gameOver() {
   clearInterval(updater);
   document.body.style.backgroundImage = "url(Drawing.jpeg)";
 }
+/*
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questing Online</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+</head>
+<body>
+    <div>
+<button onclick="moveRight()" class="items">RIGHT<br>RIGHT</button>
+<br>
+<br>
+<button onclick="moveLeft()" class="items">LEFT<br>LEFT</button>
+<br>
+<br>
+<button onclick="moveUp()" class="items">UP<br>UP</button>
+<br>
+<br>
+<button onclick="moveDown()" class="items">DOWN<br>DOWN</button>
+<br>
+<br>
+<button onclick="saveProgress()" class="items">SAVE</button>
+<br>
+<button onclick="loadSave()" class="items">LOAD</button>
+<br>
+<button onclick="interact()" class="items">ATTACK<br>ATTACK</button>
+<br>
+<br>
+<button onclick="openInv()" class="items">open inventory</button>
+<br>
+<div id="money" class="items"></div>
+<br>
+<br>
+<div class="items" id="points"></div>
+<br>
+<div class="items" id="healthy"></div>
+<br>
+<div class="items" id="time"></div>
+<br>
+<br>
+<div class="items" id="loaned"></div>  
+<div class="lilMenu">Car:<br> 50,000 coins<br>Health Potion:<br> 20 coins<br>Rusty Blade:<br> 1 dmg, 25 coins<br>0ld Sword:<br> 1.5 dmg, 50 coins<br>Axe:<br> 2 dmg, 70 coins<br>Nice Axe:<br> 4 dmg, 90 coins<br>Shiny Sword:<br> 6 dmg: 120 coins<br>Worst Sword Ever:<br> 0.01 dmg, free!</div>
+<br>
+</div>
+<div class="tallDiv" id="dayNight"></div>
+<button id="main" class="thing" onclick="tickle()">0</button>
+<div class="shop" id="buy"><br>CAR 4 SALE<br>SHOP SWORDS</div>
+<div class="buzz" id="work"><button id="subbing" onclick="sub()" class="items2">WORK</button><br>WORK: Business BlahBlah</div>
+<div class="house1" id="home1"><br><br><br>HOUSE</div>
+<div class="house2" id="home2">HOME</div>
+<div class="caveMark"><br><br><br><br><br>CAVE CAVE HERE</div>
+<div class="houseMark"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>BACK|O|BACK</div>
+<div class="bed">bed</div>
+<div class="table">table</div>
+<div class="caveEnter" id="danger">dark cave</div>
+</body>
+</html>
+css
+ body {
+  background-image: url(download.png);
+  color: white;
+} .thing {
+  position: absolute;
+  color: white;
+  border-color: white;
+  background-color: red;
+  left: 150px;
+  top: 20px;
+} .items {
+  position: fixed;
+  background-color: red;
+  color: white;
+  border-color: white;
+  z-index: 2;
+} .items2 {
+  position: absolute;
+  background-color: red;
+  color: white;
+  border-color: white;
+  z-index: 2;
+} .caveEnter {
+  position: absolute;
+  background-color: black;
+  left: 500px;
+  top: 170px;
+} .shop {
+  position: absolute;
+  background-color: #00006480;
+  border: 5px solid black;
+  left: 250px;
+  top: 300px;
+} .lilMenu {
+  position: fixed;
+  background-color: red;
+  color: white;
+  border-color: white;
+  size: 10px;
+  z-index: 2;
+} .buzz {
+  position: absolute;
+  background-color: #00006480;
+  border: 5px solid black;
+  left: 760px;
+  top: 235px;
+} .house1 {
+  position: absolute;
+  background-color: #00006480;
+  border: 5px solid black;
+  left: 500px;
+  top: 400px;
+} .house2 {
+  position: absolute;
+  background-color: #00006480;
+  left: 232px;
+  top: 422px;
+} .tallDiv {
+  height: 40000px;
+  width: 40000px;
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+} .caveMark {
+  position: absolute;
+  left: 5000px;
+  top: 20px;
+  background-color: #00006480;
+  border: 5px solid;
+} .houseMark {
+  position: absolute;
+  left: 7000px;
+  top: 7000px;
+  width: 500px;
+  background-color: #43ff41c2;
+  border: 5px solid;
+  z-index: 1;
+} .coins {
+  background-color: yellow;
+  position: absolute;
+  top: 9000px;
+} .bed {
+  position: absolute;
+  left: 7441px;
+  top: 7459px;
+  width: 18px;
+  height: 18px;
+  background-color: blue;
+  z-index: 2;
+} .kids {
+  position: absolute;
+} .table {
+  position: absolute;
+  left: 7423px;
+  top: 7190px;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  background-color: brown;
+} .foes {
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  position: absolute;
+}
+  */
